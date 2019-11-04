@@ -1,0 +1,57 @@
+package com.ivl.moviecatalogservice.resources;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import resources.MovieCatalogService.models.CatalogItem;
+import resources.MovieCatalogService.models.Movie;
+import resources.MovieCatalogService.models.Rating;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@RestController
+@RequestMapping("/catalogs")
+public class MovieCatlogController {
+	
+	 private static final Logger logger = LoggerFactory.getLogger(MovieCatlogController.class);
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@RequestMapping("/{user}")
+	public List<CatalogItem> getCatalog(@PathVariable("user") String user) {
+
+		ResponseEntity<List<Rating>> rateResponse = restTemplate.exchange("http://localhost:8083/movieratings",
+				HttpMethod.GET, null, new ParameterizedTypeReference<List<Rating>>() {
+				});
+		List<Rating> ratings = rateResponse.getBody();
+
+		Rating[] ratingList = restTemplate.getForObject("http://localhost:8083/movieratings", Rating[].class);
+		ratings = Arrays.asList(ratingList);
+
+		return ratings.stream().map(rating -> {
+
+			
+			  Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" +
+			  rating.getMovieId(), Movie.class);
+			  logger.info(movie.toString());
+
+			//Movie movie = restTemplate.getForObject("http://localhost:8762/movie-info-service/movies/" + rating.getMovieId(), Movie.class);
+			//return new CatalogItem(movie.getMovieName(),movie.getDesciption(), rating.getRating());
+			return new CatalogItem(movie.getMovieName(),movie.getDesciption(), 1001);
+		}).collect(Collectors.toList());
+
+	}
+
+}

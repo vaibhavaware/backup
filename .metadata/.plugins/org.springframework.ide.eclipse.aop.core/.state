@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="Eureka-discovery-server"/>
+<aop-project name="movie-info-service"/>
+<aop-project name="movie-catalog-service"/>
+<aop-project name="ZuulNetflixApiGateway"/>
+</aop-reference-model>

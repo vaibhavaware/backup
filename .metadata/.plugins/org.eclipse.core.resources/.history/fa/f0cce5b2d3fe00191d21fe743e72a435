@@ -1,0 +1,13 @@
+package com.zuul.apigaeway;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ZuulNetflixApiGatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ZuulNetflixApiGatewayApplication.class, args);
+	}
+
+}

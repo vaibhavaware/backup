@@ -1,0 +1,4 @@
+GitRepositoriesView.GitDirectories=D\:\\Test-projects\\ApiGateway_Loadbalancer\\movie-info-service\\.git;D\:\\Test-projects\\ApiGateway_Loadbalancer\\movie-rating-with-jpa\\.git;D\:\\Test-projects\\ApiGateway_Loadbalancer\\movie-catalog-service\\.git;
+GitRepositoriesView.GitDirectories.relative=movie-info-service\\.git;movie-rating-with-jpa\\.git;movie-catalog-service\\.git;
+core_autoIgnoreDerivedResources=false
+eclipse.preferences.version=1
